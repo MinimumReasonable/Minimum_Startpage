@@ -9,134 +9,165 @@
 
     body {
       font-family: 'Comic Neue', cursive;
-      background-color: #000000;
-      color: #ffffff;
+      background-color: #000;
+      color: #fff;
       margin: 0;
-      padding: 2em 1em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+      padding: 1.5em;
+      text-align: center;
     }
 
     .subtitle {
-      font-size: 1em;
+      color: #ccc;
       margin-bottom: 0.2em;
-      color: #cccccc;
-      text-align: center;
     }
 
     h1 {
       font-size: 2em;
-      text-align: center;
-      margin: 0.3em 0 0.5em 0;
+      margin: 0.2em 0 0.5em;
     }
 
     #clock {
       font-size: 1em;
-      margin-bottom: 2em;
-      color: #bbbbbb;
-    }
-
-    #search {
-      margin-bottom: 2em;
-      width: 100%;
-      max-width: 400px;
+      color: #bbb;
+      margin-bottom: 1.5em;
     }
 
     #search input {
       width: 100%;
+      max-width: 400px;
       padding: 0.8em;
       font-size: 1em;
-      border: none;
       border-radius: 10px;
-      background: #ffffff;
-      color: #000000;
+      border: none;
+      background: #fff;
+      color: #000;
       opacity: 0.5;
     }
 
     #calendar {
-      margin-top: 1em;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      font-family: 'Open Sans', sans-serif;
+      margin-top: 2em;
     }
 
-    #calendar h2 {
+    #month-year {
+      font-size: 1.3em;
       margin-bottom: 0.5em;
-      font-size: 1.2em;
-      color: #ffffff;
+    }
+
+    .nav-buttons {
+      margin-bottom: 1em;
+    }
+
+    .nav-buttons button {
+      background-color: #444;
+      border: none;
+      padding: 0.5em 1em;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 8px;
+      margin: 0 0.5em;
+      cursor: pointer;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 0.3em;
-      font-size: 0.9em;
+      gap: 0.4em;
+      max-width: 400px;
+      margin: auto;
     }
 
     .calendar-grid div {
-      padding: 0.6em 0;
+      padding: 0.8em 0;
       background-color: #111;
-      border-radius: 8px;
+      border-radius: 10px;
     }
 
-    .calendar-grid .day-name {
+    .day-name {
       background-color: transparent;
       font-weight: bold;
       color: #ccc;
     }
 
     .today {
-      background-color: #ff4d4d;
-      color: white;
+      border: 2px solid #ff4d4d;
+      background-color: #222;
       font-weight: bold;
+      color: #fff;
+    }
+
+    .important-dates {
+      margin-top: 2.5em;
+      text-align: left;
+      max-width: 400px;
+      margin-inline: auto;
+    }
+
+    .important-dates h3 {
+      font-size: 1.1em;
+      margin-bottom: 0.5em;
     }
 
     footer {
-      margin-top: auto;
+      margin-top: 3em;
       font-family: 'Open Sans', sans-serif;
       font-size: 0.9em;
       color: #888;
       font-style: italic;
-      text-align: center;
-      padding-top: 3em;
     }
   </style>
 </head>
 <body>
+
   <div class="subtitle">since 10/03/2022</div>
   <h1>Preetu ❤️ Maru</h1>
   <div id="clock">Loading time...</div>
 
-  <div id="search">
-    <form action="https://www.google.com/search" method="GET" target="_blank">
-      <input type="text" name="q" placeholder="Search Google..." />
-    </form>
-  </div>
+  <form action="https://www.google.com/search" method="GET" target="_blank">
+    <input type="text" name="q" placeholder="Search Google..." />
+  </form>
 
   <div id="calendar">
-    <h2 id="month-year">Loading...</h2>
+    <div class="nav-buttons">
+      <button onclick="changeMonth(-1)">← Prev</button>
+      <button onclick="changeMonth(1)">Next →</button>
+    </div>
+    <div id="month-year">Loading...</div>
     <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
+  <div class="important-dates">
+    <h3>Important dates :</h3>
+    <ul id="important-list"></ul>
   </div>
 
   <footer>made with love made forever</footer>
 
   <script>
+    const importantDates = [
+      { label: "10th March", month: 2, day: 10 }, // March is month 2 (0-indexed)
+      { label: "4th July", month: 6, day: 4 },
+      { label: "5th Sept", month: 8, day: 5 }
+    ];
+
+    let currentDate = new Date();
+
     function updateClock() {
       const now = new Date();
-      const timeString = now.toLocaleTimeString();
-      document.getElementById('clock').textContent = timeString;
+      document.getElementById('clock').textContent = now.toLocaleTimeString();
     }
+
     setInterval(updateClock, 1000);
     updateClock();
 
-    function generateCalendar() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth();
-      const today = now.getDate();
+    function changeMonth(offset) {
+      currentDate.setMonth(currentDate.getMonth() + offset);
+      generateCalendar(currentDate);
+    }
+
+    function generateCalendar(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const today = new Date();
 
       const monthNames = [
         "January", "February", "March", "April", "May", "June",
@@ -153,32 +184,58 @@
       const grid = document.getElementById('calendar-grid');
       grid.innerHTML = '';
 
-      // Add day names
-      for (let dayName of dayNames) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day-name';
-        dayDiv.textContent = dayName;
-        grid.appendChild(dayDiv);
-      }
+      dayNames.forEach(day => {
+        const div = document.createElement('div');
+        div.className = 'day-name';
+        div.textContent = day;
+        grid.appendChild(div);
+      });
 
-      // Fill in empty days before the 1st
       for (let i = 0; i < firstDay; i++) {
-        const empty = document.createElement('div');
-        grid.appendChild(empty);
+        grid.appendChild(document.createElement('div'));
       }
 
-      // Fill in the actual days
-      for (let day = 1; day <= daysInMonth; day++) {
+      for (let d = 1; d <= daysInMonth; d++) {
         const dayDiv = document.createElement('div');
-        dayDiv.textContent = day;
-        if (day === today) {
+        dayDiv.textContent = d;
+
+        if (
+          d === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
           dayDiv.classList.add('today');
         }
+
         grid.appendChild(dayDiv);
       }
+
+      updateImportantDates(today);
     }
 
-    generateCalendar();
+    function updateImportantDates(today) {
+      const list = document.getElementById("important-list");
+      list.innerHTML = "";
+
+      importantDates.forEach(event => {
+        let targetYear = today.getFullYear();
+        const targetDate = new Date(targetYear, event.month, event.day);
+
+        if (targetDate < today) {
+          targetDate.setFullYear(targetYear + 1); // set to next year
+        }
+
+        const diffTime = targetDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const li = document.createElement("li");
+        li.textContent = `${event.label} : ${diffDays} days left`;
+        list.appendChild(li);
+      });
+    }
+
+    generateCalendar(currentDate);
   </script>
+
 </body>
 </html>
