@@ -55,6 +55,45 @@
       opacity: 0.5;
     }
 
+    #calendar {
+      margin-top: 1em;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    #calendar h2 {
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+      color: #ffffff;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.3em;
+      font-size: 0.9em;
+    }
+
+    .calendar-grid div {
+      padding: 0.6em 0;
+      background-color: #111;
+      border-radius: 8px;
+    }
+
+    .calendar-grid .day-name {
+      background-color: transparent;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    .today {
+      background-color: #ff4d4d;
+      color: white;
+      font-weight: bold;
+    }
+
     footer {
       margin-top: auto;
       font-family: 'Open Sans', sans-serif;
@@ -77,6 +116,11 @@
     </form>
   </div>
 
+  <div id="calendar">
+    <h2 id="month-year">Loading...</h2>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
   <footer>made with love made forever</footer>
 
   <script>
@@ -87,6 +131,54 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    function generateCalendar() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const today = now.getDate();
+
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      document.getElementById('month-year').textContent = `${monthNames[month]} ${year}`;
+
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
+
+      // Add day names
+      for (let dayName of dayNames) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day-name';
+        dayDiv.textContent = dayName;
+        grid.appendChild(dayDiv);
+      }
+
+      // Fill in empty days before the 1st
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        grid.appendChild(empty);
+      }
+
+      // Fill in the actual days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.textContent = day;
+        if (day === today) {
+          dayDiv.classList.add('today');
+        }
+        grid.appendChild(dayDiv);
+      }
+    }
+
+    generateCalendar();
   </script>
 </body>
 </html>
