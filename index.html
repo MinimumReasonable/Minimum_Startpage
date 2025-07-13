@@ -1,154 +1,175 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Preetu ❤️ Maru</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Open+Sans:ital,wght@1,300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Open+Sans:ital,wght@1,300&display=swap');body {
+  font-family: 'Comic Neue', cursive;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 1.5em;
+  text-align: center;
+}
 
-    body {
-      font-family: 'Comic Neue', cursive;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 1.5em;
-      text-align: center;
-    }
+.subtitle {
+  color: #ccc;
+  margin-bottom: 0.2em;
+}
 
-    .subtitle {
-      color: #ccc;
-      margin-bottom: 0.2em;
-    }
+h1 {
+  font-size: 2em;
+  margin: 0.2em 0 0.5em;
+}
 
-    h1 {
-      font-size: 2em;
-      margin: 0.2em 0 0.5em;
-    }
+#clock {
+  font-size: 1em;
+  color: #bbb;
+  margin-bottom: 1.5em;
+}
 
-    #clock {
-      font-size: 1em;
-      color: #bbb;
-      margin-bottom: 1.5em;
-    }
+form {
+  margin-bottom: 1em;
+}
 
-    form {
-      margin-bottom: 1.5em;
-    }
+input[type="text"] {
+  width: 90%;
+  max-width: 500px;
+  padding: 1em 1.5em;
+  font-size: 1em;
+  border-radius: 50px;
+  border: none;
+  background: #fff;
+  color: #000;
+  opacity: 0.6;
+  box-shadow: 0 0 8px #333;
+}
 
-    input[type="text"] {
-      width: 90%;
-      max-width: 500px;
-      padding: 1em 1.5em;
-      font-size: 1em;
-      border-radius: 50px;
-      border: none;
-      background: #fff;
-      color: #000;
-      opacity: 0.6;
-      box-shadow: 0 0 8px #333;
-    }
+#weather {
+  margin: 1em auto 2em;
+  max-width: 700px;
+  display: flex;
+  overflow-x: auto;
+  gap: 1em;
+  justify-content: center;
+}
 
-    #calendar {
-      margin-top: 1.5em;
-    }
+.weather-day {
+  background: #111;
+  padding: 0.8em;
+  border-radius: 10px;
+  min-width: 100px;
+}
 
-    #month-year {
-      font-size: 1.2em;
-      margin-bottom: 0.3em;
-    }
+.weather-day h4 {
+  margin: 0 0 0.3em;
+  font-size: 1em;
+  color: #ccc;
+}
 
-    .nav-buttons {
-      margin-bottom: 0.7em;
-    }
+.weather-day p {
+  margin: 0.2em 0;
+  font-size: 0.9em;
+}
 
-    .nav-buttons button {
-      background-color: #444;
-      border: none;
-      padding: 0.4em 1em;
-      color: #fff;
-      font-size: 0.95em;
-      border-radius: 8px;
-      margin: 0 0.3em;
-      cursor: pointer;
-    }
+#calendar {
+  margin-top: 1.5em;
+}
 
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.25em;
-      max-width: 340px;
-      margin: auto;
-    }
+#month-year {
+  font-size: 1.2em;
+  margin-bottom: 0.3em;
+}
 
-    .calendar-grid div {
-      padding: 0.6em 0;
-      background-color: #111;
-      border-radius: 8px;
-      font-size: 0.85em;
-    }
+.nav-buttons {
+  margin-bottom: 0.7em;
+}
 
-    .day-name {
-      background-color: transparent;
-      font-weight: bold;
-      color: #ccc;
-    }
+.nav-buttons button {
+  background-color: #444;
+  border: none;
+  padding: 0.4em 1em;
+  color: #fff;
+  font-size: 0.95em;
+  border-radius: 8px;
+  margin: 0 0.3em;
+  cursor: pointer;
+}
 
-    .today {
-      border: 2px solid #ff4d4d;
-      background-color: #222;
-      font-weight: bold;
-      color: #fff;
-    }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25em;
+  max-width: 340px;
+  margin: auto;
+}
 
-    .important-dates {
-      margin-top: 2em;
-      text-align: left;
-      max-width: 400px;
-      margin-inline: auto;
-    }
+.calendar-grid div {
+  padding: 0.6em 0;
+  background-color: #111;
+  border-radius: 8px;
+  font-size: 0.85em;
+}
 
-    .important-dates h3 {
-      font-size: 1.1em;
-      margin-bottom: 0.5em;
-    }
+.day-name {
+  background-color: transparent;
+  font-weight: bold;
+  color: #ccc;
+}
 
-    footer {
-      margin-top: 2.5em;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.9em;
-      color: #888;
-      font-style: italic;
-    }
+.today {
+  border: 2px solid #ff4d4d;
+  background-color: #222;
+  font-weight: bold;
+  color: #fff;
+}
+
+.important-dates {
+  margin-top: 2em;
+  text-align: left;
+  max-width: 400px;
+  margin-inline: auto;
+}
+
+.important-dates h3 {
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+}
+
+footer {
+  margin-top: 2.5em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9em;
+  color: #888;
+  font-style: italic;
+}
+
   </style>
 </head>
-<body>
-
-  <div class="subtitle">since 10/03/2022</div>
+<body>  <div class="subtitle">since 10/03/2022</div>
   <h1>Preetu ❤️ Maru</h1>
-  <div id="clock">Loading time...</div>
-
-  <form action="https://www.google.com/search" method="GET" target="_blank">
+  <div id="clock">Loading time...</div>  <form action="https://www.google.com/search" method="GET" target="_blank">
     <input type="text" name="q" placeholder="Search Google..." />
-  </form>
-
-  <div id="calendar">
+  </form>  <div id="weather">
+    <div class="weather-day"><h4>Mon</h4><p>32°C</p><p>Sunny</p></div>
+    <div class="weather-day"><h4>Tue</h4><p>33°C</p><p>Cloudy</p></div>
+    <div class="weather-day"><h4>Wed</h4><p>34°C</p><p>Sunny</p></div>
+    <div class="weather-day"><h4>Thu</h4><p>31°C</p><p>Rain</p></div>
+    <div class="weather-day"><h4>Fri</h4><p>32°C</p><p>Rain</p></div>
+    <div class="weather-day"><h4>Sat</h4><p>30°C</p><p>Cloudy</p></div>
+    <div class="weather-day"><h4>Sun</h4><p>33°C</p><p>Sunny</p></div>
+  </div>  <div id="calendar">
     <div class="nav-buttons">
       <button onclick="changeMonth(-1)">← Prev</button>
       <button onclick="changeMonth(1)">Next →</button>
     </div>
     <div id="month-year">Loading...</div>
     <div class="calendar-grid" id="calendar-grid"></div>
-  </div>
-
-  <div class="important-dates">
+  </div>  <div class="important-dates">
     <h3>Important dates :</h3>
     <ul id="important-list"></ul>
-  </div>
-
-  <footer>made with love made forever</footer>
-
-  <script>
+  </div>  <footer>made with love made forever</footer>  <script>
     const importantDates = [
       { label: "10th March", month: 2, day: 10 },
       { label: "4th July", month: 6, day: 4 },
@@ -241,7 +262,5 @@
     }
 
     generateCalendar(currentDate);
-  </script>
-
-</body>
+  </script></body>
 </html>
