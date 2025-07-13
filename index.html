@@ -4,7 +4,7 @@
   <title>RnA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&display=swap');body {
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&family=Product+Sans&display=swap');body {
   font-family: 'Open Sans', sans-serif;
   background: linear-gradient(to bottom right, #0f0f0f, #1c1c1c);
   color: #fff;
@@ -49,7 +49,8 @@ input[type="text"] {
   width: 90%;
   max-width: 500px;
   padding: 1em 1.5em;
-  font-size: 1em;
+  font-size: 0.85em;
+  font-family: 'Product Sans', sans-serif;
   border-radius: 50px;
   border: none;
   background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
@@ -59,6 +60,12 @@ input[type="text"] {
   animation: rainbow 10s ease infinite;
   opacity: 0.95;
   transition: transform 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+  font-size: 0.85em;
 }
 
 input[type="text"]:focus {
@@ -94,6 +101,7 @@ input[type="text"]:focus {
   min-width: 80px;
   flex-shrink: 0;
   transition: transform 0.2s;
+  position: relative;
 }
 
 .weather-day:hover {
@@ -215,7 +223,7 @@ footer {
   <div class="subtitle">since 10/03/2022</div>
   <h1 class="title">RnA</h1>
   <div id="clock">Loading time...</div>  <form action="https://www.google.com/search" method="GET" target="_blank">
-    <input type="text" name="q" placeholder="Search Google..." />
+    <input type="text" name="q" placeholder="Love will always find you if you let it" />
   </form>  <div id="weather">
     <div class="weather-day"><h4>Mon</h4><p>32°C</p><p>Sunny</p></div>
     <div class="weather-day"><h4>Tue</h4><p>33°C</p><p>Cloudy</p></div>
