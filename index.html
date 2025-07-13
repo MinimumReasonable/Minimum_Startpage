@@ -6,16 +6,18 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&display=swap');body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #000;
+  background: linear-gradient(to bottom right, #0f0f0f, #1c1c1c);
   color: #fff;
   margin: 0;
-  padding: 1.5em;
+  padding: 2em 1.2em;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .subtitle {
   color: #ccc;
-  margin-bottom: 0.2em;
+  font-size: 0.95em;
+  margin-bottom: 0.5em;
 }
 
 h1.title {
@@ -23,13 +25,20 @@ h1.title {
   font-size: 3.5em;
   margin: 0.2em 0 0.5em;
   color: white;
-  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 5px #fff, 0 0 15px #66ffcc, 0 0 25px #66ffcc;
+  animation: fadeZoom 2s ease-out;
+}
+
+@keyframes fadeZoom {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 #clock {
   font-size: 1em;
   color: #bbb;
   margin-bottom: 1.5em;
+  letter-spacing: 1px;
 }
 
 form {
@@ -48,7 +57,13 @@ input[type="text"] {
   color: #000;
   box-shadow: 0 0 8px #333;
   animation: rainbow 10s ease infinite;
-  opacity: 0.9;
+  opacity: 0.95;
+  transition: transform 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  transform: scale(1.02);
 }
 
 @keyframes rainbow {
@@ -58,13 +73,14 @@ input[type="text"] {
 }
 
 #weather {
-  margin: 1em auto 2em;
+  margin: 2em auto;
   max-width: 100%;
   display: flex;
   overflow-x: auto;
   gap: 1em;
   justify-content: flex-start;
   padding: 0 1em;
+  scroll-behavior: smooth;
 }
 
 #weather::-webkit-scrollbar {
@@ -72,17 +88,23 @@ input[type="text"] {
 }
 
 .weather-day {
-  background: #111;
+  background: #1f1f1f;
   padding: 0.8em;
-  border-radius: 10px;
-  min-width: 70px;
+  border-radius: 12px;
+  min-width: 80px;
   flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.weather-day:hover {
+  transform: scale(1.05);
+  background: #333;
 }
 
 .weather-day h4 {
   margin: 0 0 0.3em;
   font-size: 1em;
-  color: #ccc;
+  color: #66ffcc;
 }
 
 .weather-day p {
@@ -91,14 +113,14 @@ input[type="text"] {
 }
 
 #calendar {
-  margin-top: 1.5em;
+  margin-top: 2em;
   transition: all 0.5s ease-in-out;
 }
 
 #month-year {
   font-size: 1.2em;
   margin-bottom: 0.3em;
-  transition: opacity 0.5s ease-in-out;
+  color: #99ffff;
 }
 
 .nav-buttons {
@@ -106,14 +128,19 @@ input[type="text"] {
 }
 
 .nav-buttons button {
-  background-color: #444;
-  border: none;
+  background-color: #222;
+  border: 1px solid #444;
   padding: 0.4em 1em;
   color: #fff;
   font-size: 0.95em;
   border-radius: 8px;
   margin: 0 0.3em;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #444;
 }
 
 .calendar-grid {
@@ -132,7 +159,7 @@ input[type="text"] {
 
 .calendar-grid div {
   padding: 0.6em 0;
-  background-color: #111;
+  background-color: #1a1a1a;
   border-radius: 8px;
   font-size: 0.85em;
 }
@@ -144,31 +171,38 @@ input[type="text"] {
 }
 
 .today {
-  border: 2px solid #ff4d4d;
-  background-color: #222;
+  border: 2px solid #00ffcc;
+  background-color: #2d2d2d;
   font-weight: bold;
   color: #fff;
 }
 
 .important-dates {
-  margin-top: 2em;
+  margin-top: 2.5em;
   text-align: left;
-  max-width: 400px;
+  max-width: 420px;
   margin-inline: auto;
   border: 1px solid #444;
   border-radius: 12px;
-  padding: 1em;
-  background: #111;
+  padding: 1em 1.2em;
+  background: #121212;
+  box-shadow: 0 0 8px rgba(0,255,255,0.1);
+  animation: fadeZoom 1s ease-in-out;
 }
 
 .important-dates h3 {
-  font-size: 1.1em;
+  font-size: 1.2em;
   margin-bottom: 0.5em;
   text-align: center;
+  color: #66ffcc;
+}
+
+.important-dates ul {
+  padding-left: 1em;
 }
 
 footer {
-  margin-top: 2.5em;
+  margin-top: 3em;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
   color: #888;
