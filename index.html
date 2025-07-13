@@ -1,282 +1,334 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>RnA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&family=Product+Sans&display=swap');body {
-  font-family: 'Open Sans', sans-serif;
-  background: linear-gradient(to bottom right, #0f0f0f, #1c1c1c);
-  color: #fff;
-  margin: 0;
-  padding: 2em 1.2em;
-  text-align: center;
-  overflow-x: hidden;
-  position: relative;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&family=Product+Sans&display=swap');
 
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 50%;
-  animation: floatSpark 5s infinite linear;
-}
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to bottom right, #0f0f0f, #1c1c1c);
+      color: #fff;
+      margin: 0;
+      padding: 2em 1.2em;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-@keyframes floatSpark {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
-}
+    .firefly {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      animation: fly 15s linear infinite, flicker 2s infinite alternate;
+    }
 
-.subtitle {
-  color: #ccc;
-  font-size: 0.95em;
-  margin-bottom: 0.5em;
-}
+    @keyframes fly {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(calc(100vw - 10px), calc(100vh - 10px));
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(0, 0);
+        opacity: 0.8;
+      }
+    }
 
-h1.title {
-  font-family: 'Pacifico', cursive;
-  font-size: 3.5em;
-  margin: 0.2em 0 0.5em;
-  color: white;
-  animation: colorGlow 6s infinite ease-in-out, flicker-hover 2s infinite alternate;
-  transition: text-shadow 0.3s ease;
-}
+    @keyframes flicker {
+      0% {
+        box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+        background-color: #0ff;
+        opacity: 0.6;
+      }
+      50% {
+        box-shadow: 0 0 15px #ff0, 0 0 25px #ff0;
+        background-color: #ff0;
+        opacity: 1;
+      }
+      100% {
+        box-shadow: 0 0 10px #f0f, 0 0 20px #f0f;
+        background-color: #f0f;
+        opacity: 0.7;
+      }
+    }
 
-@keyframes colorGlow {
-  0% { text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f; }
-  25% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; }
-  50% { text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0; }
-  75% { text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0; }
-  100% { text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f; }
-}
+    .subtitle {
+      color: #ccc;
+      font-size: 0.95em;
+      margin-bottom: 0.5em;
+    }
 
-@keyframes flicker-hover {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.85; }
-}
+    h1.title {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.5em;
+      margin: 0.2em 0 0.5em;
+      color: white;
+      animation: colorGlow 6s infinite ease-in-out, flicker-hover 2s infinite alternate;
+      transition: text-shadow 0.3s ease;
+      cursor: pointer;
+    }
 
-#clock {
-  font-size: 1em;
-  color: #bbb;
-  margin-bottom: 1.5em;
-  letter-spacing: 1px;
-}
+    @keyframes colorGlow {
+      0% {
+        text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f;
+      }
+      25% {
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+      }
+      50% {
+        text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+      }
+      75% {
+        text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0;
+      }
+      100% {
+        text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f;
+      }
+    }
 
-form {
-  margin-bottom: 1em;
-}
+    @keyframes flicker-hover {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.85;
+      }
+    }
 
-input[type="text"] {
-  width: 90%;
-  max-width: 500px;
-  padding: 1em 1.5em;
-  font-size: 0.85em;
-  font-family: 'Product Sans', sans-serif;
-  border-radius: 50px;
-  border: none;
-  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-  background-size: 400% 400%;
-  color: #000;
-  box-shadow: 0 0 8px #333;
-  animation: rainbow 10s ease infinite;
-  opacity: 0.95;
-  transition: transform 0.3s ease;
-}
+    #clock {
+      font-size: 1em;
+      color: #bbb;
+      margin-bottom: 1.5em;
+      letter-spacing: 1px;
+    }
 
-input[type="text"]::placeholder {
-  color: rgba(0, 0, 0, 0.6);
-  font-style: italic;
-  font-size: 0.85em;
-}
+    form {
+      margin-bottom: 1em;
+    }
 
-input[type="text"]:focus {
-  outline: none;
-  transform: scale(1.02);
-}
+    input[type='text'] {
+      width: 90%;
+      max-width: 500px;
+      padding: 1em 1.5em;
+      font-size: 0.85em;
+      font-family: 'Product Sans', sans-serif;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400% 400%;
+      color: #000;
+      box-shadow: 0 0 8px #333;
+      animation: rainbow 10s ease infinite;
+      opacity: 0.95;
+      transition: transform 0.3s ease;
+    }
 
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    input[type='text']::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+      font-style: italic;
+      font-size: 0.85em;
+    }
 
-#weather {
-  margin: 2em auto;
-  max-width: 100%;
-  display: flex;
-  overflow-x: auto;
-  gap: 1em;
-  justify-content: flex-start;
-  padding: 0 1em;
-  scroll-behavior: smooth;
-}
+    input[type='text']:focus {
+      outline: none;
+      transform: scale(1.02);
+    }
 
-#weather::-webkit-scrollbar {
-  display: none;
-}
+    @keyframes rainbow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-.weather-day {
-  background: #1f1f1f;
-  padding: 0.8em;
-  border-radius: 12px;
-  min-width: 80px;
-  flex-shrink: 0;
-  transition: transform 0.2s;
-  position: relative;
-}
+    #weather {
+      margin: 2em auto;
+      max-width: 100%;
+      display: flex;
+      overflow-x: auto;
+      gap: 1em;
+      justify-content: flex-start;
+      padding: 0 1em;
+      scroll-behavior: smooth;
+    }
 
-.weather-day:hover {
-  transform: scale(1.05);
-  background: #333;
-}
+    #weather::-webkit-scrollbar {
+      display: none;
+    }
 
-.weather-day h4 {
-  margin: 0 0 0.3em;
-  font-size: 1em;
-  color: #66ffcc;
-}
+    .weather-day {
+      background: #1f1f1f;
+      padding: 0.8em;
+      border-radius: 12px;
+      min-width: 80px;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      position: relative;
+    }
 
-.weather-day p {
-  margin: 0.2em 0;
-  font-size: 0.9em;
-}
+    .weather-day:hover {
+      transform: scale(1.05);
+      background: #333;
+    }
 
-#calendar {
-  margin-top: 2em;
-  transition: all 0.5s ease-in-out;
-}
+    .weather-day h4 {
+      margin: 0 0 0.3em;
+      font-size: 1em;
+      color: #66ffcc;
+    }
 
-#month-year {
-  font-size: 1.2em;
-  margin-bottom: 0.3em;
-  color: #99ffff;
-}
+    .weather-day p {
+      margin: 0.2em 0;
+      font-size: 0.9em;
+    }
 
-.nav-buttons {
-  margin-bottom: 0.7em;
-}
+    #calendar {
+      margin-top: 2em;
+      transition: all 0.5s ease-in-out;
+    }
 
-.nav-buttons button {
-  background-color: #222;
-  border: 1px solid #444;
-  padding: 0.4em 1em;
-  color: #fff;
-  font-size: 0.95em;
-  border-radius: 8px;
-  margin: 0 0.3em;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    #month-year {
+      font-size: 1.2em;
+      margin-bottom: 0.3em;
+      color: #99ffff;
+    }
 
-.nav-buttons button:hover {
-  background-color: #444;
-}
+    .nav-buttons {
+      margin-bottom: 0.7em;
+    }
 
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.25em;
-  max-width: 340px;
-  margin: auto;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
+    .nav-buttons button {
+      background-color: #222;
+      border: 1px solid #444;
+      padding: 0.4em 1em;
+      color: #fff;
+      font-size: 0.95em;
+      border-radius: 8px;
+      margin: 0 0.3em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-.calendar-grid.fade-out {
-  opacity: 0;
-}
+    .nav-buttons button:hover {
+      background-color: #444;
+    }
 
-.calendar-grid div {
-  padding: 0.6em 0;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  font-size: 0.85em;
-}
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.25em;
+      max-width: 340px;
+      margin: auto;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
 
-.day-name {
-  background-color: transparent;
-  font-weight: bold;
-  color: #ccc;
-}
+    .calendar-grid.fade-out {
+      opacity: 0;
+    }
 
-.today {
-  border: 2px solid #00ffcc;
-  background-color: #2d2d2d;
-  font-weight: bold;
-  color: #fff;
-}
+    .calendar-grid div {
+      padding: 0.6em 0;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      font-size: 0.85em;
+    }
 
-.important-dates {
-  margin-top: 2.5em;
-  text-align: left;
-  max-width: 420px;
-  margin-inline: auto;
-  border: 1px solid #444;
-  border-radius: 12px;
-  padding: 1em 1.2em;
-  background: #121212;
-  box-shadow: 0 0 8px rgba(0,255,255,0.1);
-  animation: fadeZoom 1s ease-in-out;
-}
+    .day-name {
+      background-color: transparent;
+      font-weight: bold;
+      color: #ccc;
+    }
 
-.important-dates h3 {
-  font-size: 1.2em;
-  margin-bottom: 0.5em;
-  text-align: center;
-  color: #66ffcc;
-}
+    .today {
+      border: 2px solid #00ffcc;
+      background-color: #2d2d2d;
+      font-weight: bold;
+      color: #fff;
+    }
 
-.important-dates ul {
-  padding-left: 1em;
-}
+    .important-dates {
+      margin-top: 2.5em;
+      text-align: left;
+      max-width: 420px;
+      margin-inline: auto;
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 1em 1.2em;
+      background: #121212;
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.1);
+    }
 
-footer {
-  margin-top: 3em;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9em;
-  color: #888;
-  font-style: italic;
-}
+    .important-dates h3 {
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+      text-align: center;
+      color: #66ffcc;
+    }
 
+    .important-dates ul {
+      padding-left: 1em;
+    }
+
+    footer {
+      margin-top: 3em;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9em;
+      color: #888;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
   <div class="subtitle">since 10/03/2022</div>
-  <h1 class="title">RnA</h1>
-  <div id="clock">Loading time...</div>  <form action="https://www.google.com/search" method="GET" target="_blank">
+  <h1 class="title" onclick="toggleFireflies()">RnA</h1>
+  <div id="clock">Loading time...</div>
+
+  <form action="https://www.google.com/search" method="GET" target="_blank">
     <input type="text" name="q" placeholder="Love will always find you if you let it" />
-  </form>  <div id="weather">
-    <div class="weather-day"><h4>Mon</h4><p>32°C</p><p>Sunny</p></div>
-    <div class="weather-day"><h4>Tue</h4><p>33°C</p><p>Cloudy</p></div>
-    <div class="weather-day"><h4>Wed</h4><p>34°C</p><p>Sunny</p></div>
-    <div class="weather-day"><h4>Thu</h4><p>31°C</p><p>Rain</p></div>
-    <div class="weather-day"><h4>Fri</h4><p>32°C</p><p>Rain</p></div>
-    <div class="weather-day"><h4>Sat</h4><p>30°C</p><p>Cloudy</p></div>
-    <div class="weather-day"><h4>Sun</h4><p>33°C</p><p>Sunny</p></div>
-  </div>  <div id="calendar">
+  </form>
+
+  <div id="weather" aria-label="7‑day weather forecast">
+    <div class="weather-day today"><h4>Sun</h4><p>32°C</p><p>Sunny</p></div>
+    <div class="weather-day"><h4>Mon</h4><p>30°C</p><p>Cloudy</p></div>
+    <div class="weather-day"><h4>Tue</h4><p>31°C</p><p>Rainy</p></div>
+    <div class="weather-day"><h4>Wed</h4><p>33°C</p><p>Sunny</p></div>
+    <div class="weather-day"><h4>Thu</h4><p>29°C</p><p>Thunder</p></div>
+    <div class="weather-day"><h4>Fri</h4><p>30°C</p><p>Cloudy</p></div>
+    <div class="weather-day"><h4>Sat</h4><p>31°C</p><p>Sunny</p></div>
+  </div>
+
+  <div id="calendar">
     <div class="nav-buttons">
       <button onclick="changeMonth(-1)">← Prev</button>
       <button onclick="changeMonth(1)">Next →</button>
     </div>
     <div id="month-year">Loading...</div>
     <div class="calendar-grid" id="calendar-grid"></div>
-  </div>  <div class="important-dates">
+  </div>
+
+  <div class="important-dates">
     <h3>Important dates :</h3>
     <ul id="important-list"></ul>
-  </div>  <footer>made with love made forever</footer>  <!-- Spark particles -->  <script>
-    const createSpark = () => {
-      const spark = document.createElement('div');
-      spark.className = 'particle';
-      spark.style.left = Math.random() * 100 + 'vw';
-      spark.style.top = Math.random() * 100 + 'vh';
-      spark.style.animationDuration = (Math.random() * 5 + 3) + 's';
-      document.body.appendChild(spark);
-      setTimeout(() => spark.remove(), 8000);
-    };
-    setInterval(createSpark, 500);
-  </script>  <script>
+  </div>
+
+  <footer>made with love made forever ~ by a.goswami</footer>
+
+  <script>
     const importantDates = [
       { label: "10th March", month: 2, day: 10 },
       { label: "4th July", month: 6, day: 4 },
@@ -287,18 +339,18 @@ footer {
 
     function updateClock() {
       const now = new Date();
-      document.getElementById('clock').textContent = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
     }
     setInterval(updateClock, 1000);
     updateClock();
 
     function changeMonth(offset) {
-      const grid = document.getElementById('calendar-grid');
-      grid.classList.add('fade-out');
+      const grid = document.getElementById("calendar-grid");
+      grid.classList.add("fade-out");
       setTimeout(() => {
         currentDate.setMonth(currentDate.getMonth() + offset);
         generateCalendar(currentDate);
-        grid.classList.remove('fade-out');
+        grid.classList.remove("fade-out");
       }, 300);
     }
 
@@ -317,31 +369,27 @@ footer {
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-      document.getElementById('month-year').textContent = `${monthNames[month]} ${year}`;
+      document.getElementById("month-year").textContent = `${monthNames[month]} ${year}`;
 
-      const grid = document.getElementById('calendar-grid');
-      grid.innerHTML = '';
+      const grid = document.getElementById("calendar-grid");
+      grid.innerHTML = "";
 
       dayNames.forEach(day => {
-        const div = document.createElement('div');
-        div.className = 'day-name';
+        const div = document.createElement("div");
+        div.className = "day-name";
         div.textContent = day;
         grid.appendChild(div);
       });
 
       for (let i = 0; i < firstDay; i++) {
-        grid.appendChild(document.createElement('div'));
+        grid.appendChild(document.createElement("div"));
       }
 
       for (let d = 1; d <= daysInMonth; d++) {
-        const dayDiv = document.createElement('div');
+        const dayDiv = document.createElement("div");
         dayDiv.textContent = d;
-        if (
-          d === today.getDate() &&
-          month === today.getMonth() &&
-          year === today.getFullYear()
-        ) {
-          dayDiv.classList.add('today');
+        if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+          dayDiv.classList.add("today");
         }
         grid.appendChild(dayDiv);
       }
@@ -371,5 +419,31 @@ footer {
     }
 
     generateCalendar(currentDate);
-  </script></body>
+
+    // Firefly toggle logic
+    let firefliesEnabled = true;
+    const fireflyContainer = document.createElement("div");
+    document.body.appendChild(fireflyContainer);
+
+    function createFirefly() {
+      if (!firefliesEnabled) return;
+      const fly = document.createElement("div");
+      fly.className = "firefly";
+      fly.style.left = Math.random() * 100 + "vw";
+      fly.style.top = Math.random() * 100 + "vh";
+      fly.style.animationDuration = (Math.random() * 20 + 10) + "s";
+      fireflyContainer.appendChild(fly);
+      setTimeout(() => fly.remove(), 25000);
+    }
+
+    function toggleFireflies() {
+      firefliesEnabled = !firefliesEnabled;
+      if (!firefliesEnabled) {
+        fireflyContainer.innerHTML = "";
+      }
+    }
+
+    setInterval(createFirefly, 600);
+  </script>
+</body>
 </html>
