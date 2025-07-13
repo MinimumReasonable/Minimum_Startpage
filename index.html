@@ -12,6 +12,21 @@
   padding: 2em 1.2em;
   text-align: center;
   overflow-x: hidden;
+  position: relative;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  animation: floatSpark 5s infinite linear;
+}
+
+@keyframes floatSpark {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
 }
 
 .subtitle {
@@ -25,13 +40,21 @@ h1.title {
   font-size: 3.5em;
   margin: 0.2em 0 0.5em;
   color: white;
-  text-shadow: 0 0 5px #fff, 0 0 15px #66ffcc, 0 0 25px #66ffcc;
-  animation: fadeZoom 2s ease-out;
+  animation: colorGlow 6s infinite ease-in-out, flicker-hover 2s infinite alternate;
+  transition: text-shadow 0.3s ease;
 }
 
-@keyframes fadeZoom {
-  0% { opacity: 0; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes colorGlow {
+  0% { text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f; }
+  25% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; }
+  50% { text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0; }
+  75% { text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0; }
+  100% { text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f; }
+}
+
+@keyframes flicker-hover {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
 }
 
 #clock {
@@ -242,7 +265,18 @@ footer {
   </div>  <div class="important-dates">
     <h3>Important dates :</h3>
     <ul id="important-list"></ul>
-  </div>  <footer>made with love made forever</footer>  <script>
+  </div>  <footer>made with love made forever</footer>  <!-- Spark particles -->  <script>
+    const createSpark = () => {
+      const spark = document.createElement('div');
+      spark.className = 'particle';
+      spark.style.left = Math.random() * 100 + 'vw';
+      spark.style.top = Math.random() * 100 + 'vh';
+      spark.style.animationDuration = (Math.random() * 5 + 3) + 's';
+      document.body.appendChild(spark);
+      setTimeout(() => spark.remove(), 8000);
+    };
+    setInterval(createSpark, 500);
+  </script>  <script>
     const importantDates = [
       { label: "10th March", month: 2, day: 10 },
       { label: "4th July", month: 6, day: 4 },
