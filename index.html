@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Preetu ❤️ Maru</title>
+  <title>RnA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Open+Sans:ital,wght@1,300&display=swap');body {
-  font-family: 'Comic Neue', cursive;
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:ital,wght@1,300&display=swap');body {
+  font-family: 'Open Sans', sans-serif;
   background-color: #000;
   color: #fff;
   margin: 0;
@@ -18,9 +18,12 @@
   margin-bottom: 0.2em;
 }
 
-h1 {
-  font-size: 2em;
+h1.title {
+  font-family: 'Pacifico', cursive;
+  font-size: 3.5em;
   margin: 0.2em 0 0.5em;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 #clock {
@@ -89,11 +92,13 @@ input[type="text"] {
 
 #calendar {
   margin-top: 1.5em;
+  transition: all 0.5s ease-in-out;
 }
 
 #month-year {
   font-size: 1.2em;
   margin-bottom: 0.3em;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .nav-buttons {
@@ -117,6 +122,12 @@ input[type="text"] {
   gap: 0.25em;
   max-width: 340px;
   margin: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.calendar-grid.fade-out {
+  opacity: 0;
 }
 
 .calendar-grid div {
@@ -144,11 +155,16 @@ input[type="text"] {
   text-align: left;
   max-width: 400px;
   margin-inline: auto;
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 1em;
+  background: #111;
 }
 
 .important-dates h3 {
   font-size: 1.1em;
   margin-bottom: 0.5em;
+  text-align: center;
 }
 
 footer {
@@ -163,7 +179,7 @@ footer {
 </head>
 <body>
   <div class="subtitle">since 10/03/2022</div>
-  <h1>Preetu ❤️ Maru</h1>
+  <h1 class="title">RnA</h1>
   <div id="clock">Loading time...</div>  <form action="https://www.google.com/search" method="GET" target="_blank">
     <input type="text" name="q" placeholder="Search Google..." />
   </form>  <div id="weather">
@@ -197,13 +213,17 @@ footer {
       const now = new Date();
       document.getElementById('clock').textContent = now.toLocaleTimeString();
     }
-
     setInterval(updateClock, 1000);
     updateClock();
 
     function changeMonth(offset) {
-      currentDate.setMonth(currentDate.getMonth() + offset);
-      generateCalendar(currentDate);
+      const grid = document.getElementById('calendar-grid');
+      grid.classList.add('fade-out');
+      setTimeout(() => {
+        currentDate.setMonth(currentDate.getMonth() + offset);
+        generateCalendar(currentDate);
+        grid.classList.remove('fade-out');
+      }, 300);
     }
 
     function generateCalendar(date) {
@@ -240,7 +260,6 @@ footer {
       for (let d = 1; d <= daysInMonth; d++) {
         const dayDiv = document.createElement('div');
         dayDiv.textContent = d;
-
         if (
           d === today.getDate() &&
           month === today.getMonth() &&
@@ -248,7 +267,6 @@ footer {
         ) {
           dayDiv.classList.add('today');
         }
-
         grid.appendChild(dayDiv);
       }
 
