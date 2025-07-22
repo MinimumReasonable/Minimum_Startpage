@@ -18,28 +18,6 @@
       position: relative;
     }
 
-    .firefly {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      pointer-events: none;
-      animation: fly 15s linear infinite, flicker 2s infinite alternate;
-    }
-
-    @keyframes fly {
-      0% { transform: translate(0, 0); opacity: 0.8; }
-      50% { transform: translate(calc(100vw - 10px), calc(100vh - 10px)); opacity: 0.5; }
-      100% { transform: translate(0, 0); opacity: 0.8; }
-    }
-
-    @keyframes flicker {
-      0% { box-shadow: 0 0 5px #0ff, 0 0 10px #0ff; background-color: #0ff; opacity: 0.6; }
-      50% { box-shadow: 0 0 15px #ff0, 0 0 25px #ff0; background-color: #ff0; opacity: 1; }
-      100% { box-shadow: 0 0 10px #f0f, 0 0 20px #f0f; background-color: #f0f; opacity: 0.7; }
-    }
-
     .subtitle {
       color: #ccc;
       font-size: 0.95em;
@@ -110,47 +88,6 @@
     @keyframes rainbow {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
-    }
-
-    #weather {
-      margin: 2em auto;
-      max-width: 100%;
-      display: flex;
-      overflow-x: auto;
-      gap: 1em;
-      justify-content: flex-start;
-      padding: 0 1em;
-      scroll-behavior: smooth;
-    }
-
-    #weather::-webkit-scrollbar {
-      display: none;
-    }
-
-    .weather-day {
-      background: #1f1f1f;
-      padding: 0.8em;
-      border-radius: 12px;
-      min-width: 80px;
-      flex-shrink: 0;
-      transition: transform 0.2s;
-      position: relative;
-    }
-
-    .weather-day:hover {
-      transform: scale(1.05);
-      background: #333;
-    }
-
-    .weather-day h4 {
-      margin: 0 0 0.3em;
-      font-size: 1em;
-      color: #66ffcc;
-    }
-
-    .weather-day p {
-      margin: 0.2em 0;
-      font-size: 0.9em;
     }
 
     #calendar {
@@ -267,22 +204,12 @@
 </head>
 <body>
   <div class="subtitle">since 10/03/2022</div>
-  <h1 class="title" onclick="toggleFireflies()">RnA</h1>
+  <h1 class="title">RnA</h1>
   <div id="clock">Loading time...</div>
 
   <form action="https://www.google.com/search" method="GET" target="_blank">
     <input type="text" name="q" placeholder="Love will always find you if you let it" />
   </form>
-
-  <div id="weather" aria-label="7‑day weather forecast">
-    <div class="weather-day today"><h4>Sun</h4><p>32°C</p><p>Sunny</p></div>
-    <div class="weather-day"><h4>Mon</h4><p>30°C</p><p>Cloudy</p></div>
-    <div class="weather-day"><h4>Tue</h4><p>31°C</p><p>Rainy</p></div>
-    <div class="weather-day"><h4>Wed</h4><p>33°C</p><p>Sunny</p></div>
-    <div class="weather-day"><h4>Thu</h4><p>29°C</p><p>Thunder</p></div>
-    <div class="weather-day"><h4>Fri</h4><p>30°C</p><p>Cloudy</p></div>
-    <div class="weather-day"><h4>Sat</h4><p>31°C</p><p>Sunny</p></div>
-  </div>
 
   <div id="calendar">
     <div class="nav-buttons">
@@ -397,29 +324,6 @@
     }
 
     generateCalendar(currentDate);
-
-    // Firefly animation logic
-    let firefliesEnabled = true;
-    const fireflyContainer = document.createElement("div");
-    document.body.appendChild(fireflyContainer);
-
-    function createFirefly() {
-      if (!firefliesEnabled) return;
-      const fly = document.createElement("div");
-      fly.className = "firefly";
-      fly.style.left = Math.random() * 100 + "vw";
-      fly.style.top = Math.random() * 100 + "vh";
-      fly.style.animationDuration = (Math.random() * 20 + 10) + "s";
-      fireflyContainer.appendChild(fly);
-      setTimeout(() => fly.remove(), 25000);
-    }
-
-    function toggleFireflies() {
-      firefliesEnabled = !firefliesEnabled;
-      if (!firefliesEnabled) fireflyContainer.innerHTML = "";
-    }
-
-    setInterval(createFirefly, 600);
   </script>
 </body>
 </html>
